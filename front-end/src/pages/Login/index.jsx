@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosAPI from '../../api/request';
 import rockGlass from '../../images/rockGlass.svg';
-import { Base, Form, LoginBtn, Input, RegisterBtn, Alert } from './style';
+import { Base, Form, LoginBtn, Input, RegisterBtn, Alert } from '../../styles/style';
 
 const MIN_PASSWORD = 6;
 function Login() {
@@ -81,6 +81,7 @@ function Login() {
         <RegisterBtn
           type="button"
           data-testid="common_login__button-register"
+          onClick={ () => history('/register') }
         >
           Ainda não tenho conta
         </RegisterBtn>
