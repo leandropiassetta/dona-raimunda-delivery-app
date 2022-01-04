@@ -1,27 +1,34 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axiosAPI from '../../api/request';
 import rockGlass from '../../images/rockGlass.svg';
-import { Base, Form, LoginBtn, Input, RegisterBtn } from './style';
+import { Base, Form, LoginBtn, Input, RegisterBtn, Alert } from './style';
 
 const MIN_PASSWORD = 6;
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [authorized, setAuthorized] = useState(true);
+  const [alert, setAlert] = useState(false);
+  const history = useNavigate();
   const regexEmail = /^[\w.]+@[a-z]+\.\w{2,3}$/g;
-  // const validLogin = () => {
-  //   const regexEmail = /^[\w.]+@[a-z]+\.\w{2,3}$/g;
-  //   const isValidEmail = () => regexEmail.test(email);
-  //   setAuthorized(!(isValidEmail && password.length > MIN_PASSWORD));
-  // };
 
   const changeEmail = ({ target }) => {
     setEmail(target.value);
-    // validLogin();
   };
 
   const changePassword = ({ target }) => {
     setPassword(target.value);
-    // validLogin();
+  };
+
+  const loginInfo = async () => {
+    try {
+      await axiosAPI.post('/login', { email, password });
+      history('/customer/products');
+    } catch (error) {
+      console.log(Object.keys(error));
+      console.log(error.response);
+      setAlert(error.response.data.message);
+    }
   };
 
   return (
@@ -29,6 +36,11 @@ function Login() {
       <object className="w-48" type="image/svg+xml" data={ rockGlass }>
         Glass
       </object>
+      {
+        alert && (
+          <Alert data-testid="common_login__element-invalid-email">{ alert }</Alert>
+        )
+      }
       <Form
         action="/login"
         method="POST"
@@ -61,8 +73,8 @@ function Login() {
         <LoginBtn
           type="button"
           data-testid="common_login__button-login"
-          // disabled={ authorized }
           disabled={ !(regexEmail.test(email) && password.length >= MIN_PASSWORD) }
+          onClick={ () => loginInfo() }
         >
           LOGIN
         </LoginBtn>

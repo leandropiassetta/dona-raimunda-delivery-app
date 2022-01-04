@@ -38,3 +38,9 @@ export const RegisterBtn = tw.button`
   p-2
   mt-1
 `;
+
+export const Alert = tw.div`
+  bg-red-500
+  p-2
+  rounded-lg
+`;
