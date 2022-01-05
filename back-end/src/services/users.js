@@ -15,7 +15,7 @@ const searchUser = async (search) => {
 
     const token = await createToken(user);
 
-    return { ...copyUser, token }
+    return { ...copyUser, token };
   } catch (error) {
     console.error(error);
     return null;
