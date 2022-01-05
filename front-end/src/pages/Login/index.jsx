@@ -6,17 +6,17 @@ import rockGlass from '../../images/rockGlass.svg';
 import { Base, Form, LoginBtn, Input, RegisterBtn, Alert } from '../../styles';
 
 function Login() {
-  // states
+  // States
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [alert, setAlert] = useState(false);
 
-  // utils
+  // Utils
   const MIN_PASSWORD = 6;
   const regexEmail = /^[\w.]+@[a-z]+\.\w{2,3}$/g;
   const history = useNavigate();
 
-  // functions
+  // Functions
   const changeEmail = ({ target }) => setEmail(target.value);
   const changePassword = ({ target }) => setPassword(target.value);
   const loginInfo = async () => {
