@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function cardProduct({ product }) {
+function CardProduct({ product }) {
   return (
     <section>
       <p
@@ -37,4 +38,13 @@ function cardProduct({ product }) {
   );
 }
 
-export default cardProduct;
+CardProduct.propTypes = {
+  product: PropTypes.shape({
+    id: PropTypes.number,
+    image: PropTypes.string,
+    name: PropTypes.string,
+    price: PropTypes.number,
+  }).isRequired,
+};
+
+export default CardProduct;

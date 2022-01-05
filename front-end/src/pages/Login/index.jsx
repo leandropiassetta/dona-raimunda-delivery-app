@@ -20,8 +20,12 @@ function Login() {
   const changeEmail = ({ target }) => setEmail(target.value);
   const changePassword = ({ target }) => setPassword(target.value);
   const loginInfo = async () => {
-    const token = await loginUser({ email, password });
-    if (token.error) return setAlert(token.error);
+    const userData = await loginUser({ email, password });
+
+    if (userData.error) return setAlert(userData.error);
+
+    localStorage.setItem('user', JSON.stringify(userData.data));
+
     history('/customer/products');
   };
 

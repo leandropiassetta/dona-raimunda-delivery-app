@@ -1,6 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function navBar() {
+function NavBar() {
+  const history = useNavigate();
+  const logout = () => {
+    localStorage.clear();
+
+    history('/login');
+  };
+
   return (
     <nav>
       <section
@@ -16,11 +24,12 @@ function navBar() {
       <section
         data-testid="customer_products__element-navbar-user-full-name"
       >
-        NOME
+        { JSON.parse(localStorage.getItem('user')).name }
       </section>
       <button
         data-testid="customer_products__element-navbar-link-logout"
         type="button"
+        onClick={ () => logout() }
       >
         Sair
       </button>
@@ -28,4 +37,4 @@ function navBar() {
   );
 }
 
-export default navBar;
+export default NavBar;

@@ -1,6 +1,6 @@
 import React from 'react';
-import NavBar from '../../components/navBar';
-import CardProduct from '../../components/cardProduct';
+import NavBar from '../../components/NavBar';
+import CardProduct from '../../components/CardProduct';
 
 function customerProducts() {
   const listProduct = [
