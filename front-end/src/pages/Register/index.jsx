@@ -1,82 +1,86 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { loginUser } from '../../api/user';
-import rockGlass from '../../images/rockGlass.svg';
-import { Base, Form, LoginBtn, Input, RegisterBtn, Alert } from '../../styles';
+import { registerUser } from '../../api/user';
+import { Base, Form, LoginBtn, Input, Alert } from '../../styles';
 
-function Login() {
+export default () => {
   // States
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [alert, setAlert] = useState(false);
 
   // Utils
   const MIN_PASSWORD = 6;
+  const MIN_NAME = 12;
   const regexEmail = /^[\w.]+@[a-z]+\.\w{2,3}$/g;
   const history = useNavigate();
 
   // Functions
   const changeEmail = ({ target }) => setEmail(target.value);
   const changePassword = ({ target }) => setPassword(target.value);
-  const loginInfo = async () => {
-    const token = await loginUser({ email, password });
+  const changeName = ({ target }) => setName(target.value);
+  const registerInfo = async () => {
+    const token = await registerUser({ email, name, password, role: 'customer' });
     if (token.error) return setAlert(token.error);
     history('/customer/products');
   };
 
   return (
     <Base>
-      <object className="w-48" type="image/svg+xml" data={ rockGlass }>
-        Glass
-      </object>
       <Form>
         {
           alert && (
-            <Alert data-testid="common_login__element-invalid-email">{ alert }</Alert>
+            <Alert
+              data-testid="common_register__element-invalid_register"
+            >
+              { alert }
+            </Alert>
           )
         }
+        <Input
+          placeholder="Seu nome"
+          type="text"
+          value={ name }
+          data-testid="common_register__input-name"
+          onChange={ changeName }
+        />
         <Input
           placeholder="email@seuZeh.com.br"
           type="text"
           value={ email }
-          data-testid="common_login__input-email"
+          data-testid="common_register__input-email"
           onChange={ changeEmail }
         />
         <Input
           placeholder="******"
           type="password"
           value={ password }
-          data-testid="common_login__input-password"
+          data-testid="common_register__input-password"
           onChange={ changePassword }
         />
         <button
           type="button"
           onClick={ () => {
+            setName('Teste Testado');
             setPassword('1234567');
-            setEmail('le@gmail.com');
+            setEmail('teste@gmail.com');
           } }
         >
-          Esqueceu a senha?
+          Já está cadastrado?
         </button>
         <LoginBtn
           type="button"
-          data-testid="common_login__button-login"
-          disabled={ !(regexEmail.test(email) && password.length >= MIN_PASSWORD) }
-          onClick={ () => loginInfo() }
+          data-testid="common_register__button-register"
+          disabled={ !(regexEmail.test(email)
+            && password.length >= MIN_PASSWORD
+            && name.length >= MIN_NAME) }
+          onClick={ () => registerInfo() }
         >
-          LOGIN
+          Cadastrar
         </LoginBtn>
-        <RegisterBtn
-          type="button"
-          data-testid="common_login__button-register"
-          onClick={ () => history('/register') }
-        >
-          Ainda não tenho conta
-        </RegisterBtn>
       </Form>
     </Base>
   );
-}
-
-export default Login;
+};
