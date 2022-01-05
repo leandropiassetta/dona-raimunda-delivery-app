@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { registerUser } from '../../api/user';
-import { Base, Form, LoginBtn, Input, Alert } from '../../styles/style';
+import { useNavigate } from 'react-router-dom';
 
-const MIN_PASSWORD = 6;
-const MIN_NAME = 12;
+import { registerUser } from '../../api/user';
+import { Base, Form, LoginBtn, Input, Alert } from '../../styles';
 
 export default () => {
   // States
@@ -13,15 +12,19 @@ export default () => {
   const [alert, setAlert] = useState(false);
 
   // Utils
+  const MIN_PASSWORD = 6;
+  const MIN_NAME = 12;
   const regexEmail = /^[\w.]+@[a-z]+\.\w{2,3}$/g;
+  const history = useNavigate();
 
   // Functions
   const changeEmail = ({ target }) => setEmail(target.value);
   const changePassword = ({ target }) => setPassword(target.value);
   const changeName = ({ target }) => setName(target.value);
   const registerInfo = async () => {
-    const token = await registerUser({ email, name, password });
-    if (token.error) setAlert(token.error);
+    const token = await registerUser({ email, name, password, role: 'customer' });
+    if (token.error) return setAlert(token.error);
+    history('/customer/products');
   };
 
   return (

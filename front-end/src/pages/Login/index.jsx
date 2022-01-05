@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { loginUser } from '../../api/user';
 import rockGlass from '../../images/rockGlass.svg';
-import { Base, Form, LoginBtn, Input, RegisterBtn, Alert } from '../../styles/style';
+import { Base, Form, LoginBtn, Input, RegisterBtn, Alert } from '../../styles';
 
-const MIN_PASSWORD = 6;
 function Login() {
+  // states
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [alert, setAlert] = useState(false);
-  const history = useNavigate();
+
+  // utils
+  const MIN_PASSWORD = 6;
   const regexEmail = /^[\w.]+@[a-z]+\.\w{2,3}$/g;
+  const history = useNavigate();
 
-  const changeEmail = ({ target }) => {
-    setEmail(target.value);
-  };
-
-  const changePassword = ({ target }) => {
-    setPassword(target.value);
-  };
-
+  // functions
+  const changeEmail = ({ target }) => setEmail(target.value);
+  const changePassword = ({ target }) => setPassword(target.value);
   const loginInfo = async () => {
     const token = await loginUser({ email, password });
-    if (token.error) setAlert(token.error);
+    if (token.error) return setAlert(token.error);
+    history('/customer/products');
   };
 
   return (
@@ -30,11 +30,7 @@ function Login() {
       <object className="w-48" type="image/svg+xml" data={ rockGlass }>
         Glass
       </object>
-
-      <Form
-        action="/login"
-        method="POST"
-      >
+      <Form>
         {
           alert && (
             <Alert data-testid="common_login__element-invalid-email">{ alert }</Alert>
@@ -44,7 +40,6 @@ function Login() {
           placeholder="email@seuZeh.com.br"
           type="text"
           value={ email }
-          name="email"
           data-testid="common_login__input-email"
           onChange={ changeEmail }
         />
@@ -52,7 +47,6 @@ function Login() {
           placeholder="******"
           type="password"
           value={ password }
-          name="password"
           data-testid="common_login__input-password"
           onChange={ changePassword }
         />
