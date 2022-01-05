@@ -22,7 +22,11 @@ function cardProduct({ product }) {
       >
         -
       </button>
-      <input type="text" value={0} data-testid={ `customer_products__input-card-quantity-${product.id}` } />
+      <input
+        type="text"
+        value={ 0 }
+        data-testid={ `customer_products__input-card-quantity-${product.id}` }
+      />
       <button
         data-testid={ `customer_products__button-card-add-item-${product.id}` }
         type="button"
