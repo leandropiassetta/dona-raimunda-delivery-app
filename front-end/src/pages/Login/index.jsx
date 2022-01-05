@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axiosAPI from '../../api/request';
+import { loginUser } from '../../api/user';
 import rockGlass from '../../images/rockGlass.svg';
 import { Base, Form, LoginBtn, Input, RegisterBtn, Alert } from '../../styles/style';
 
@@ -21,14 +21,8 @@ function Login() {
   };
 
   const loginInfo = async () => {
-    try {
-      await axiosAPI.post('/login', { email, password });
-      history('/customer/products');
-    } catch (error) {
-      console.log(Object.keys(error));
-      console.log(error.response);
-      setAlert(error.response.data.message);
-    }
+    const token = await loginUser({ email, password });
+    if (token.error) setAlert(token.error);
   };
 
   return (
@@ -36,15 +30,16 @@ function Login() {
       <object className="w-48" type="image/svg+xml" data={ rockGlass }>
         Glass
       </object>
-      {
-        alert && (
-          <Alert data-testid="common_login__element-invalid-email">{ alert }</Alert>
-        )
-      }
+
       <Form
         action="/login"
         method="POST"
       >
+        {
+          alert && (
+            <Alert data-testid="common_login__element-invalid-email">{ alert }</Alert>
+          )
+        }
         <Input
           placeholder="email@seuZeh.com.br"
           type="text"

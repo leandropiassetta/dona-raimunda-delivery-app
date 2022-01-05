@@ -1,21 +1,29 @@
 import React, { useState } from 'react';
+import { registerUser } from '../../api/user';
 import { Base, Form, LoginBtn, Input, Alert } from '../../styles/style';
 
 const MIN_PASSWORD = 6;
 const MIN_NAME = 12;
 
-function Register() {
+export default () => {
+  // States
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [alert, setAlert] = useState(false);
+
+  // Utils
   const regexEmail = /^[\w.]+@[a-z]+\.\w{2,3}$/g;
+
+  // Functions
   const changeEmail = ({ target }) => setEmail(target.value);
   const changePassword = ({ target }) => setPassword(target.value);
   const changeName = ({ target }) => setName(target.value);
-  const registerInfo = () => {
-    setAlert('Teste');
+  const registerInfo = async () => {
+    const token = await registerUser({ email, name, password });
+    if (token.error) setAlert(token.error);
   };
+
   return (
     <Base>
       <Form>
@@ -52,12 +60,12 @@ function Register() {
         <button
           type="button"
           onClick={ () => {
-            setName('Teste');
+            setName('Teste Testado');
             setPassword('1234567');
             setEmail('teste@gmail.com');
           } }
         >
-          Teste
+          Já está cadastrado?
         </button>
         <LoginBtn
           type="button"
@@ -72,6 +80,4 @@ function Register() {
       </Form>
     </Base>
   );
-}
-
-export default Register;
+};
