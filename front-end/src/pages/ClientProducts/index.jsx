@@ -1,26 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import NavBar from '../../components/NavBar';
 import CardProduct from '../../components/CardProduct';
+import listProducts from '../../api/products';
 
-function customerProducts() {
-  const listProduct = [
-    { id: 1, name: 'joao', price: 19, image: 'oi' },
-    { id: 2, name: 'joao', price: 19, image: 'oi' },
-    { id: 3, name: 'joao', price: 19, image: 'oi' },
-    { id: 4, name: 'joao', price: 19, image: 'oi' },
-    { id: 5, name: 'joao', price: 19, image: 'oi' },
-    { id: 6, name: 'joao', price: 19, image: 'oi' },
-    { id: 7, name: 'joao', price: 19, image: 'oi' },
-    { id: 8, name: 'joao', price: 19, image: 'oi' },
-    { id: 9, name: 'joao', price: 19, image: 'oi' },
-    { id: 10, name: 'joao', price: 19, image: 'oi' },
-    { id: 11, name: 'joao', price: 19, image: 'oi' },
-  ];
+function CustomerProducts() {
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    const asyncFunc = async () => {
+      const listProd = await listProducts();
+      setProducts(listProd);
+    };
+    asyncFunc();
+  }, []);
 
   return (
     <div>
       <NavBar />
-      {listProduct.map((product) => (<CardProduct
+      {products.map((product) => (<CardProduct
         key={ product.id }
         product={ product }
       />))}
@@ -28,4 +24,4 @@ function customerProducts() {
   );
 }
 
-export default customerProducts;
+export default CustomerProducts;

@@ -11,7 +11,7 @@ function CardProduct({ product }) {
       </p>
       <img
         data-testid={ `customer_products__img-card-bg-image-${product.id}` }
-        src={ product.image }
+        src={ product.url_image }
         alt={ product.name }
       />
       <p data-testid={ `customer_products__element-card-title-${product.id}` }>
@@ -41,7 +41,7 @@ function CardProduct({ product }) {
 CardProduct.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.number,
-    image: PropTypes.string,
+    url_image: PropTypes.string,
     name: PropTypes.string,
     price: PropTypes.number,
   }).isRequired,
