@@ -12,7 +12,7 @@ function ButtonCheckout() {
       .reduce((acc, curr) => (curr.price * curr.quantity) + acc, 0);
     setTotalValue(sumPrices);
   }, [products]);
-
+  // Comentário
   return (
     <button
       type="button"
