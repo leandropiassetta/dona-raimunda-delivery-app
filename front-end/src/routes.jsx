@@ -11,6 +11,7 @@ function routes() {
         <Route exact path="/" element={ <Navigate replace to="/login" /> } />
         <Route path="/login" element={ <Login /> } />
         <Route path="/customer/products" element={ <ClientProducts /> } />
+        <Route path="/customer/checkout" element={ <div /> } />
         <Route path="/register" element={ <Register /> } />
       </Routes>
     </BrowserRouter>

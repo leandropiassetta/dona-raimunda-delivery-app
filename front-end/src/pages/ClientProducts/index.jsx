@@ -3,6 +3,7 @@ import NavBar from '../../components/NavBar';
 import CardProduct from '../../components/CardProduct';
 import listProducts from '../../api/products';
 import { Products } from '../../styles';
+import ButtonCheckout from '../../components/ButtonCheckout';
 
 function CustomerProducts() {
   const [products, setProducts] = useState([]);
@@ -23,6 +24,7 @@ function CustomerProducts() {
           product={ product }
         />))}
       </Products>
+      <ButtonCheckout />
     </div>
   );
 }
