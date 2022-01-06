@@ -44,3 +44,52 @@ export const Alert = tw.div`
   p-2
   rounded-lg
 `;
+
+export const Nav = tw.nav`
+  bg-stone-700
+  flex
+  py-3
+  px-32
+  justify-between
+`;
+
+export const NavBtn = tw.button`
+  bg-gray-200
+  rounded-lg
+  p-2
+  m-1
+`;
+
+export const Section = tw.section`
+  flex
+  bg-gray-300
+  rounded-lg
+`;
+
+export const Products = tw.div`
+  pl-1
+  py-2
+  flex
+  my-2
+  mx-32
+  bg-white
+  flex-wrap
+  rounded-lg
+`;
+
+export const ProductCard = tw.div`
+  bg-gray-100
+  rounded-lg
+  m-1
+  max-w-xs
+  max-h-96
+  p-2
+`;
+
+export const ProductImg = tw.div`
+  flex
+  h-4/5
+  bg-white
+  w-full
+  justify-center
+`;

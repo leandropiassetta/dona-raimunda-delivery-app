@@ -6,4 +6,6 @@ const getAllProducts = async (_req, res) => {
   return res.status(200).json(products);
 };
 
-module.exports = getAllProducts;
+module.exports = {
+  getAllProducts,
+};

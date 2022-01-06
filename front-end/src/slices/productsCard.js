@@ -11,36 +11,31 @@ const reducers = {
   addProduct: (state, { payload }) => {
     state.products = [...state.products, payload];
   },
+  setQuantity: (state, { payload }) => {
+    state.products = state.products.reduce((acc, cur) => {
+      const product = cur;
+      if (cur.name === payload.name) product.quantity = payload.quantity;
+      return (product.quantity === 0) ? acc : [...acc, product];
+    }, []);
+  },
   removeProduct: (state, { payload }) => {
     state.products = state.products.filter((product) => product.name !== payload);
-  },
-  incrementQuantify: (state, { payload }) => {
-    state.products = state.products.reduce((acc, cur) => {
-      const product = cur;
-      if (cur.name === payload) product.quantify += 1;
-      return [...acc, product];
-    }, []);
-  },
-  decrementQuantify: (state, { payload }) => {
-    state.products = state.products.reduce((acc, cur) => {
-      const product = cur;
-      if (cur.name === payload) product.quantify -= 1;
-      return [...acc, product];
-    }, []);
   },
 };
 
 export const userSlice = createSlice({
-  name: 'products',
+  name: 'productsCard',
   initialState,
   reducers,
 });
 
 export const {
+  setProducts,
   addProduct,
   removeProduct,
   incrementQuantify,
   decrementQuantify,
+  setQuantity,
 } = userSlice.actions;
 
 export default userSlice.reducer;

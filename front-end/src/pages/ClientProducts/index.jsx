@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import NavBar from '../../components/NavBar';
 import CardProduct from '../../components/CardProduct';
 import listProducts from '../../api/products';
+import { Products } from '../../styles';
 
 function CustomerProducts() {
   const [products, setProducts] = useState([]);
@@ -14,12 +15,14 @@ function CustomerProducts() {
   }, []);
 
   return (
-    <div>
+    <div className="bg-gray-100">
       <NavBar />
-      {products.map((product) => (<CardProduct
-        key={ product.id }
-        product={ product }
-      />))}
+      <Products>
+        {products.map((product) => (<CardProduct
+          key={ product.id }
+          product={ product }
+        />))}
+      </Products>
     </div>
   );
 }

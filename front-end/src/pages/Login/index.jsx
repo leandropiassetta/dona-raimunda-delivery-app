@@ -21,11 +21,8 @@ function Login() {
   const changePassword = ({ target }) => setPassword(target.value);
   const loginInfo = async () => {
     const userData = await loginUser({ email, password });
-
     if (userData.error) return setAlert(userData.error);
-
     localStorage.setItem('user', JSON.stringify(userData.data));
-
     history('/customer/products');
   };
 
@@ -58,7 +55,7 @@ function Login() {
           type="button"
           onClick={ () => {
             setPassword('1234567');
-            setEmail('le@gmail.com');
+            setEmail('teste@teste.com');
           } }
         >
           Esqueceu a senha?
