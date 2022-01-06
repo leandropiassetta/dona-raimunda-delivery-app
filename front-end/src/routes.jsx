@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import ClientProducts from './pages/ClientProducts';
 import Register from './pages/Register';
+import ClientCheckout from './pages/ClientCheckout';
 
 function routes() {
   return (
@@ -11,7 +12,7 @@ function routes() {
         <Route exact path="/" element={ <Navigate replace to="/login" /> } />
         <Route path="/login" element={ <Login /> } />
         <Route path="/customer/products" element={ <ClientProducts /> } />
-        <Route path="/customer/checkout" element={ <div /> } />
+        <Route path="/customer/checkout" element={ <ClientCheckout /> } />
         <Route path="/register" element={ <Register /> } />
       </Routes>
     </BrowserRouter>
