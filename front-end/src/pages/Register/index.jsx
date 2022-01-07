@@ -14,7 +14,7 @@ export default () => {
   // Utils
   const MIN_PASSWORD = 6;
   const MIN_NAME = 12;
-  const regexEmail = /^[\w.]+@[a-z]+\.\w{2,3}$/g;
+  const regexEmail = /\S+@\S+\.\S+/;
   const history = useNavigate();
 
   // Functions
