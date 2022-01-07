@@ -10,7 +10,7 @@ module.exports = {
         delivery_address: "aga",
         delivery_number: "aba",
         sale_date: new Date('2011-08-01T19:58:00.000Z'),
-        status: "aka",
+        status: "Pendente",
       },
     ], { timestamps: true });
   },

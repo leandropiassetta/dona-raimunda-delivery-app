@@ -17,3 +17,14 @@ export const registerUser = async (user) => {
     return { error: error.response.data.message };
   }
 };
+
+export const getSellers = async (token) => {
+  try {
+    const dataSellers = await axiosAPI.get('/users/orders', { headers: {
+      authorization: token,
+    } });
+    return dataSellers.data;
+  } catch (error) {
+    return { error };
+  }
+};

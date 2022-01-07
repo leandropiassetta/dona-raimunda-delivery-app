@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import ClientProducts from './pages/ClientProducts';
 import Register from './pages/Register';
 import ClientCheckout from './pages/ClientCheckout';
+import ClientOrder from './pages/ClientOrder';
 
 function routes() {
   return (
@@ -13,6 +14,7 @@ function routes() {
         <Route path="/login" element={ <Login /> } />
         <Route path="/customer/products" element={ <ClientProducts /> } />
         <Route path="/customer/checkout" element={ <ClientCheckout /> } />
+        <Route path="/customer/orders/:id" element={ <ClientOrder /> } />
         <Route path="/register" element={ <Register /> } />
       </Routes>
     </BrowserRouter>
