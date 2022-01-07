@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { ProductCard, ProductImg } from '../styles';
-import { setQuantity, addProduct } from '../slices/productsCard';
+import { setQuantity, addProduct } from '../slices/productsCart';
 
 function CardProduct({ product }) {
   const [quantity, setNewQuantity] = useState(0);
-  const products = useSelector((state) => state.productsCard.products);
+  const products = useSelector((state) => state.productsCart.products);
   const dispatch = useDispatch();
 
   const increment = () => {

@@ -27,7 +27,8 @@ export const LoginBtn = tw.button`
   rounded-lg
   p-2
   mb-1
-  ${({ disabled }) => (disabled ? 'bg-green-300' : 'bg-green-600')}
+  bg-green-600
+  ${({ disabled }) => (disabled ? 'opacity-50' : '')}
 `;
 
 export const RegisterBtn = tw.button`
@@ -92,4 +93,15 @@ export const ProductImg = tw.div`
   bg-white
   w-full
   justify-center
+`;
+
+export const CartButton = tw.button`
+  rounded-lg
+  p-3
+  m-3
+  fixed
+  bottom-0
+  right-0
+  bg-green-600
+  ${({ disabled }) => (disabled ? 'opacity-50' : '')}
 `;

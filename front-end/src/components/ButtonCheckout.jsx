@@ -1,31 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { CartButton } from '../styles';
 
 function ButtonCheckout() {
-  const [totalValue, setTotalValue] = useState(0);
-  const products = useSelector((state) => state.productsCard.products);
+  const products = useSelector((state) => state.productsCart.products);
   const history = useNavigate();
+  const sumPrices = products
+    .reduce((acc, curr) => (curr.price * curr.quantity) + acc, 0);
 
-  useEffect(() => {
-    const sumPrices = products
-      .reduce((acc, curr) => (curr.price * curr.quantity) + acc, 0);
-    setTotalValue(sumPrices);
-  }, [products]);
-  // Comentário
   return (
-    <button
+    <CartButton
       type="button"
       data-testid="customer_products__button-cart"
-      className="absolute bottom-0 right-0"
+      className=""
       onClick={ () => history('/customer/checkout') }
-      disabled={ totalValue === 0 }
+      disabled={ sumPrices === 0 }
     >
       <p data-testid="customer_products__checkout-bottom-value">
         Ver Carrinho: R$
-        { `${totalValue.toFixed(2)}`.replace('.', ',') }
+        { `${sumPrices.toFixed(2)}`.replace('.', ',') }
       </p>
-    </button>
+    </CartButton>
   );
 }
 

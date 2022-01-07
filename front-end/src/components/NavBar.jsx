@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import rockGlass from '../images/rockGlass.svg';
 import { NavBtn, Nav, Section } from '../styles';
-import { setProducts } from '../slices/productsCard';
+import { setProducts } from '../slices/productsCart';
 
 function NavBar() {
   const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 function FinalizeOrder() {
-  const products = useSelector((state) => state.productsCard.products);
+  const products = useSelector((state) => state.productsCart.products);
   const sumPrices = products
     .reduce((acc, curr) => (curr.price * curr.quantity) + acc, 0);
   return (

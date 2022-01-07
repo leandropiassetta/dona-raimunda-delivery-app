@@ -24,7 +24,7 @@ const reducers = {
 };
 
 export const userSlice = createSlice({
-  name: 'productsCard',
+  name: 'productsCart',
   initialState,
   reducers,
 });
