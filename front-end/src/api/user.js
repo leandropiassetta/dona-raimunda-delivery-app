@@ -20,7 +20,7 @@ export const registerUser = async (user) => {
 
 export const getSellers = async (token) => {
   try {
-    const dataSellers = await axiosAPI.get('/users/orders', { headers: {
+    const dataSellers = await axiosAPI.get('/users/sellers', { headers: {
       authorization: token,
     } });
     return dataSellers.data;
