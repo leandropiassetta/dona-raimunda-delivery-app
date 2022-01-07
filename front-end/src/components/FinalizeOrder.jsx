@@ -1,10 +1,13 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeProduct } from '../slices/productsCart';
 
 function FinalizeOrder() {
   const products = useSelector((state) => state.productsCart.products);
   const sumPrices = products
     .reduce((acc, curr) => (curr.price * curr.quantity) + acc, 0);
+  const dispatch = useDispatch();
+
   return (
     <div>
       Finalizar Pedido
@@ -62,7 +65,12 @@ function FinalizeOrder() {
                   `customer_checkout__element-order-table-remove-${index}`
                 }
               >
-                Remover
+                <button
+                  type="button"
+                  onClick={ () => dispatch(removeProduct(name)) }
+                >
+                  Remover
+                </button>
               </td>
             </tr>
           ))}
