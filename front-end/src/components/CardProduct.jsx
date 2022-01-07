@@ -7,6 +7,7 @@ import { setQuantity, addProduct } from '../slices/productsCart';
 function CardProduct({ product }) {
   const [quantity, setNewQuantity] = useState(0);
   const products = useSelector((state) => state.productsCart.products);
+  const existProduct = products.find((element) => product.name === element.name);
   const dispatch = useDispatch();
 
   const increment = () => {
@@ -24,7 +25,12 @@ function CardProduct({ product }) {
   };
 
   useEffect(() => {
-    const existProduct = products.some((element) => product.name === element.name);
+    if (existProduct) {
+      setNewQuantity(existProduct.quantity);
+    }
+  }, [existProduct]);
+
+  useEffect(() => {
     if (existProduct) return dispatch(setQuantity({ name: product.name, quantity }));
     if (quantity !== 0) {
       dispatch(addProduct({ ...product, quantity }));

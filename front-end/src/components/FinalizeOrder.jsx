@@ -73,7 +73,6 @@ function FinalizeOrder() {
         {`${sumPrices.toFixed(2)}`.replace('.', ',')}
       </div>
     </div>
-
   );
 }
 

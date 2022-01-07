@@ -22,6 +22,7 @@ function NavBar() {
         </object>
         <NavBtn
           data-testid="customer_products__element-navbar-link-products"
+          onClick={ () => history('/customer/products') }
         >
           PRODUTOS
         </NavBtn>
