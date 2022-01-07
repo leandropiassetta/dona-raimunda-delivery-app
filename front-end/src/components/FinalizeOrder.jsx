@@ -59,7 +59,7 @@ function FinalizeOrder() {
               </td>
               <td
                 data-testid={
-                  `customer_checkout__element-order-table-item-remove-${index}`
+                  `customer_checkout__element-order-table-remove-${index}`
                 }
               >
                 Remover
