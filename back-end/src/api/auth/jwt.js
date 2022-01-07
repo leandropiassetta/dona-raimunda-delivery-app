@@ -16,9 +16,13 @@ const createToken = ({ name, email, role }) => {
 };
 
 const verifyToken = (token) => {
-  const payload = jwt.verify(token, secretKey);
-
-  return payload;
+  try {
+    const payload = jwt.verify(token, secretKey);
+    return payload;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };
 
 module.exports = {

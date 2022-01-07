@@ -20,7 +20,13 @@ const registerUser = async (req, res) => {
   if (user) return res.status(201).json({ message: 'Usuário registrado com sucesso', user });
 };
 
+const getAllSellers = async (_req, res) => {
+  const sellers = await service.searchUsers({ role: 'seller' });
+  return res.status(200).json(sellers);
+};
+
 module.exports = {
   loginUser,
   registerUser,
+  getAllSellers,
 };

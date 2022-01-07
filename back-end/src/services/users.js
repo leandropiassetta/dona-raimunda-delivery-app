@@ -5,17 +5,26 @@ const { createToken } = require('../api/auth/jwt');
 const searchUser = async (search) => {
   try {
     const query = (search.password) ? { ...search, password: md5(search.password) } : search;
-    const user = await users.findOne({ where: query });
+    const user = await users.findOne({ where: query, attributes: { exclude: ['password'] } });
 
     if (!user) {
       return { message: 'Email ou senha inválida' };
     }
 
-    const { id, password, ...copyUser } = user.dataValues;
-
     const token = await createToken(user);
 
-    return { ...copyUser, token };
+    return { ...user, token };
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+const searchUsers = async (search) => {
+  try {
+    const query = (search.password) ? { ...search, password: md5(search.password) } : search;
+    const queryUsers = await users.findAll({ where: query, attributes: ['name', 'id'] });
+    return queryUsers.map((user) => user.dataValues);
   } catch (error) {
     console.error(error);
     return null;
@@ -42,4 +51,5 @@ const registerUser = async ({ email, name, password, role }) => {
 module.exports = {
   searchUser,
   registerUser,
+  searchUsers,
 };
