@@ -6,7 +6,7 @@ const initialState = {
 
 const reducers = {
   setProducts: (state, { payload }) => {
-    state.product = payload;
+    state.products = payload;
   },
   addProduct: (state, { payload }) => {
     state.products = [...state.products, payload];
