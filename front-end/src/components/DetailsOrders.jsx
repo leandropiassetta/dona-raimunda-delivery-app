@@ -28,7 +28,7 @@ function DetailsOrders() {
   async function finishOrder() {
     const { id, token } = JSON.parse(localStorage.getItem('user'));
     const body = {
-      user_id: id,
+      user_id: id - 1,
       seller_id: seller,
       status: 'Pendente',
       delivery_address: address,

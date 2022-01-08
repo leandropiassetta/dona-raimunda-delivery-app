@@ -11,7 +11,6 @@ async function createOrder({ token, body }) {
         },
       },
     );
-    console.log(order.data);
     return order.data;
   } catch (error) {
     return { error };

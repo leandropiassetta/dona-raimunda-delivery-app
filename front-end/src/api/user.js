@@ -12,7 +12,7 @@ export const loginUser = async (user) => {
 export const registerUser = async (user) => {
   try {
     const userData = await axiosAPI.post('/users/register', user);
-    return userData;
+    return userData.data;
   } catch (error) {
     return { error: error.response.data.message };
   }
