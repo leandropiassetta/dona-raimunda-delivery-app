@@ -24,7 +24,6 @@ export default () => {
   const registerInfo = async () => {
     const userData = await registerUser({ email, name, password, role: 'customer' });
     if (userData.error) return setAlert(userData.error);
-    console.log(userData);
     localStorage.setItem('user', JSON.stringify(userData.user));
     history('/customer/products');
   };
