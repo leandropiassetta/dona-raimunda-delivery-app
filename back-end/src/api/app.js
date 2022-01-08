@@ -3,6 +3,7 @@ const path = require('path').resolve('./');
 const cors = require('cors');
 const userRoutes = require('./routes/users');
 const productsRoutes = require('./routes/products');
+const ordersRoutes = require('./routes/orders');
 
 const app = express();
 app.use(express.json());
@@ -12,6 +13,7 @@ app.use('/images', express.static(`${path}/images`));
 
 app.use('/users', userRoutes);
 app.use('/products', productsRoutes);
+app.use('/orders', ordersRoutes);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 

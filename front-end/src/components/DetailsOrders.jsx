@@ -26,17 +26,17 @@ function DetailsOrders() {
   }, []);
 
   async function finishOrder() {
-    const { id } = JSON.parse(localStorage.getItem('user'));
+    const { id, token } = JSON.parse(localStorage.getItem('user'));
     const body = {
       user_id: id,
       seller_id: seller,
       status: 'Pendente',
       delivery_address: address,
       delivery_number: number,
-      products,
       total_price: sumPrices,
+      products,
     };
-    const order = await createOrder(body);
+    const order = await createOrder({ token, body });
     history(`/customer/orders/${order.id}`);
   }
 
