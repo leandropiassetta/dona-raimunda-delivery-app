@@ -16,5 +16,5 @@ const getSaleByUser = async (req, res) => {
 
 module.exports = {
   registerOrder,
-  getSaleByUser
+  getSaleByUser,
 };

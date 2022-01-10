@@ -11,12 +11,12 @@ const createOrder = async ({ products, ...order }) => {
 const getSaleByUser = async (body) => {
   try {
     const query = await sales.findAll({ where: body });
-    return query.map((sales) => sales.dataValues);
+    return query.map((sale) => sale.dataValues);
   } catch (error) {
     console.log(error);
     return null;
   }
-}
+};
 
 module.exports = {
   createOrder,
