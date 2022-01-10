@@ -32,7 +32,7 @@ const registerUser = async ({ email, name, password, role }) => {
     const {
       dataValues: newUser,
     } = await users.create({ name, email, password: md5(password), role });
-    const { id, password: senha, ...copyUser } = newUser;
+    const { password: senha, ...copyUser } = newUser;
     const token = await createToken(newUser);
     return { ...copyUser, token };
   } catch (error) {

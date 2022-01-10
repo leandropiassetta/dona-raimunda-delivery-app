@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getSellers } from '../api/user';
-import createOrder from '../api/order';
+import { createOrder } from '../api/order';
 
 function DetailsOrders() {
   const [sellers, setSellers] = useState([]);

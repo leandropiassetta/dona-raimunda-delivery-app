@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import { loginUser } from '../../api/user';
 import rockGlass from '../../images/rockGlass.svg';
 import { Base, Form, LoginBtn, Input, RegisterBtn, Alert } from '../../styles';
@@ -25,6 +24,12 @@ function Login() {
     localStorage.setItem('user', JSON.stringify(userData.data));
     history('/customer/products');
   };
+
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
+      history('/customer/products');
+    }
+  }, []);
 
   return (
     <Base>
