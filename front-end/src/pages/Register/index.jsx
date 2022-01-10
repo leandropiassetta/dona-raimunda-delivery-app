@@ -14,7 +14,7 @@ export default () => {
   // Utils
   const MIN_PASSWORD = 6;
   const MIN_NAME = 12;
-  const regexEmail = /^[\w.]+@[a-z]+\.\w{2,3}$/g;
+  const regexEmail = /\S+@\S+\.\S+/;
   const history = useNavigate();
 
   // Functions
@@ -22,8 +22,9 @@ export default () => {
   const changePassword = ({ target }) => setPassword(target.value);
   const changeName = ({ target }) => setName(target.value);
   const registerInfo = async () => {
-    const token = await registerUser({ email, name, password, role: 'customer' });
-    if (token.error) return setAlert(token.error);
+    const userData = await registerUser({ email, name, password, role: 'customer' });
+    if (userData.error) return setAlert(userData.error);
+    localStorage.setItem('user', JSON.stringify(userData.user));
     history('/customer/products');
   };
 
@@ -65,7 +66,7 @@ export default () => {
           onClick={ () => {
             setName('Teste Testado');
             setPassword('1234567');
-            setEmail('teste@gmail.com');
+            setEmail('teste@teste.com');
           } }
         >
           Já está cadastrado?

@@ -13,15 +13,16 @@ function Login() {
 
   // Utils
   const MIN_PASSWORD = 6;
-  const regexEmail = /^[\w.]+@[a-z]+\.\w{2,3}$/g;
+  const regexEmail = /\S+@\S+\.\S+/;
   const history = useNavigate();
 
   // Functions
   const changeEmail = ({ target }) => setEmail(target.value);
   const changePassword = ({ target }) => setPassword(target.value);
   const loginInfo = async () => {
-    const token = await loginUser({ email, password });
-    if (token.error) return setAlert(token.error);
+    const userData = await loginUser({ email, password });
+    if (userData.error) return setAlert(userData.error);
+    localStorage.setItem('user', JSON.stringify(userData.data));
     history('/customer/products');
   };
 
@@ -54,7 +55,7 @@ function Login() {
           type="button"
           onClick={ () => {
             setPassword('1234567');
-            setEmail('le@gmail.com');
+            setEmail('teste@teste.com');
           } }
         >
           Esqueceu a senha?

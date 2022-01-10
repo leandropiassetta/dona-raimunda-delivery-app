@@ -6,7 +6,7 @@ const verifyUser = async (req, res, next) => {
   const queryUserByEmail = await service.searchUser({ email });
   const queryUserByName = await service.searchUser({ name });
 
-  const verifiedUser = queryUserByEmail.message || queryUserByName.message;
+  const verifiedUser = queryUserByEmail.message && queryUserByName.message;
 
   if (!verifiedUser) return res.status(409).json({ message: 'Email ou nome inválido' });
   next();
