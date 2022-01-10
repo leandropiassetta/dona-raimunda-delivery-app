@@ -6,6 +6,13 @@ const registerOrder = async (req, res) => {
   return res.status(201).json(order);
 };
 
+const getOrderById = async (req, res) => {
+  const { id } = req.params;
+  const orderById = await service.getOrder({ id });
+  return res.status(200).json(orderById);
+}
+
 module.exports = {
   registerOrder,
+  getOrderById,
 };

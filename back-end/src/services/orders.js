@@ -1,4 +1,7 @@
 const { sales, salesProducts } = require('../database/models');
+const { serchUser, searchUser } = require('./users');
+const { products } = require('./products');
+
 
 const createOrder = async ({ products, ...order }) => {
   const { dataValues, null: id } = await sales.create(order);
@@ -8,6 +11,13 @@ const createOrder = async ({ products, ...order }) => {
   return { ...dataValues, id };
 };
 
+const getOrder = async (query) => {
+  const { dataValues } = await sales.findOne(query);
+  const seller = await searchUser(dataValues.sellerId);
+  return {...dataValues, seller }
+}
+
 module.exports = {
   createOrder,
+  getOrder,
 };

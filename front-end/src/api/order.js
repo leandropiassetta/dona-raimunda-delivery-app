@@ -1,6 +1,6 @@
 import axiosAPI from './request';
 
-async function createOrder({ token, body }) {
+export async function createOrder({ token, body }) {
   try {
     const order = await axiosAPI.post(
       '/orders',
@@ -17,4 +17,11 @@ async function createOrder({ token, body }) {
   }
 }
 
-export default createOrder;
+export async function getOrderById(id) {
+  try {
+    const orderById = await axiosAPI.get(`/orders/${id}`);
+    return orderById.data;
+  } catch (error) {
+    return { error };
+  }
+}
