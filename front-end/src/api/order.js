@@ -11,15 +11,22 @@ export async function createOrder({ token, body }) {
         },
       },
     );
+
     return order.data;
   } catch (error) {
     return { error };
   }
 }
 
-export async function getOrderById(id) {
+export async function getOrderById(id, token) {
   try {
-    const orderById = await axiosAPI.get(`/orders/${id}`);
+    const orderById = await axiosAPI.get(`/orders/${id}`,
+      {
+        headers: {
+          authorization: token,
+        },
+      });
+    console.log(orderById.data);
     return orderById.data;
   } catch (error) {
     return { error };
