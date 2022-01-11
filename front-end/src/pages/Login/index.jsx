@@ -29,6 +29,7 @@ function Login() {
     if (localStorage.getItem('user')) {
       history('/customer/products');
     }
+    // eslint-disable-next-line
   }, []);
 
   return (
