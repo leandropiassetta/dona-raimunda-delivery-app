@@ -17,11 +17,11 @@ const createOrder = async ({ products, ...order }) => {
 };
 
 const getOrder = async (query) => {
-  const { dataValues } = await sales.findOne({ where: query });
+  const { dataValues: sale } = await sales.findOne({ where: query });
 
-  const seller = await searchUser(dataValues.seller_id);
+  const seller = await searchUser(sale.seller_id);
 
-  const productsSales = await salesProducts.findAll({ where: { saleId: dataValues.id } });
+  const productsSales = await salesProducts.findAll({ where: { saleId: sale.id } });
 
   const reduceFunc = async (acc, cur) => {
     const { productId, quantity } = cur.dataValues;
@@ -32,7 +32,7 @@ const getOrder = async (query) => {
 
   const products = await productsSales.reduce(reduceFunc, []);
 
-  return { ...dataValues, seller, products };
+  return { ...sale, seller, products };
 };
 
 const getSaleByUser = async (body) => {

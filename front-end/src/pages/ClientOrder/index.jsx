@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-max-depth */
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
 import NavBar from '../../components/NavBar';
 import { getOrderById } from '../../api/order';
 import OrderDetails from '../../components/OrderDetails';
@@ -70,7 +69,7 @@ function ClientOrder() {
                         `customer_checkout__element-order-table-quantity-${productId}`
                       }
                     >
-                      {quantity}
+                      { quantity }
                     </td>
                     <td
                       data-testid={

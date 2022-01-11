@@ -2,13 +2,15 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import moment from 'moment';
 
+const magicNumber = -4;
+
 function OrderDetails({ order }) {
   return (
     <section>
       <div
         data-testid="customer_order_details__element-order-details-label-order-id"
       >
-        { `PEDIDO 000${order.id}` }
+        { `PEDIDO ${(`0000${order.id}`).slice(magicNumber)}` }
       </div>
       <div
         data-testid="customer_order_details__element-order-details-label-seller-name"
