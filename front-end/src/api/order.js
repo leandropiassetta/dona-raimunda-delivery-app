@@ -19,6 +19,7 @@ export const createOrder = async ({ token, body }) => {
 
 // PARAMS = QUERY
 // Corrigir bug?????
+// Feito para ser genérico funciona com { seller_id: } ou { user_id: }
 export const getOrders = async ({ token, body }) => {
   try {
     const order = await axiosAPI.get(

@@ -5,7 +5,6 @@ import moment from 'moment';
 
 function CustomerOrder({ order }) {
   const history = useNavigate();
-  console.log(typeof order.total_price);
 
   return (
     <button onClick={ () => history(`/customer/orders/${order.id}`) } type="button">
