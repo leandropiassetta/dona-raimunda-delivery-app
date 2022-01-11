@@ -17,6 +17,7 @@ export const createOrder = async ({ token, body }) => {
     return { error };
   }
 };
+
 export async function getOrderById(id, token) {
   try {
     const orderById = await axiosAPI.get(`/orders/${id}`,
