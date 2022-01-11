@@ -1,6 +1,6 @@
 import axiosAPI from './request';
 
-export async function createOrder({ token, body }) {
+export const createOrder = async ({ token, body }) => {
   try {
     const order = await axiosAPI.post(
       '/orders',
@@ -16,8 +16,7 @@ export async function createOrder({ token, body }) {
   } catch (error) {
     return { error };
   }
-}
-
+};
 export async function getOrderById(id, token) {
   try {
     const orderById = await axiosAPI.get(`/orders/${id}`,
@@ -32,3 +31,22 @@ export async function getOrderById(id, token) {
     return { error };
   }
 }
+// PARAMS = QUERY
+// Corrigir bug?????
+// Feito para ser genérico funciona com { seller_id: } ou { user_id: }
+export const getOrders = async ({ token, body }) => {
+  try {
+    const order = await axiosAPI.get(
+      '/orders',
+      {
+        params: body,
+        headers: {
+          authorization: token,
+        },
+      },
+    );
+    return order.data;
+  } catch (error) {
+    return { error };
+  }
+};
