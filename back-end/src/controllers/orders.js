@@ -12,12 +12,8 @@ const getOrderById = async (req, res) => {
   return res.status(200).json(orderById);
 };
 
-// Só usamos Query pois no AXIOS só retornava dentro da query{}
 const getSaleByUser = async (req, res) => {
-  const { query, body } = req;
-  console.log(req);
-  console.log(body);
-
+  const { query } = req;
   const orders = await service.getSaleByUser(query); 
   return res.status(200).json(orders);
 };

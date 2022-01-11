@@ -26,15 +26,12 @@ export async function getOrderById(id, token) {
           authorization: token,
         },
       });
-    console.log(orderById.data);
     return orderById.data;
   } catch (error) {
     return { error };
   }
 }
-// PARAMS = QUERY
-// Corrigir bug?????
-// Feito para ser genérico funciona com { seller_id: } ou { user_id: }
+
 export const getOrders = async ({ token, body }) => {
   try {
     const order = await axiosAPI.get(
