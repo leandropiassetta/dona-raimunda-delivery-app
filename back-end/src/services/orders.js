@@ -1,5 +1,5 @@
 const { sales, salesProducts } = require('../database/models');
-const { serchUser, searchUser } = require('./users');
+const { searchUser } = require('./users');
 const { getProductById } = require('./products');
 
 const createOrder = async ({ products, ...order }) => {
@@ -11,15 +11,13 @@ const createOrder = async ({ products, ...order }) => {
 };
 
 const getOrder = async (query) => {
-  const { dataValues } = await sales.findOne(query);
-
+  const { dataValues } = await sales.findOne({ where: query });
   const seller = await searchUser(dataValues.seller_id);
-
   const productsId = await salesProducts.findAll({ where: { saleId: dataValues.id } });
-  const productOrder = await getProductById(productsId.id)
+  // const productOrder = await getProductById(productsId.id);
 
-  return {...dataValues, seller, productOrder }
-}
+  return { ...dataValues, seller };
+};
 
 module.exports = {
   createOrder,

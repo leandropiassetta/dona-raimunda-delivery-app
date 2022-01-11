@@ -8,9 +8,10 @@ const registerOrder = async (req, res) => {
 
 const getOrderById = async (req, res) => {
   const { id } = req.params;
+  console.log('teste', id);
   const orderById = await service.getOrder({ id });
   return res.status(200).json(orderById);
-}
+};
 
 module.exports = {
   registerOrder,

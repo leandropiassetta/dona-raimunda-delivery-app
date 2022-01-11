@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-max-depth */
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import moment from 'moment';
 // import { useSelector } from 'react-redux';
 import NavBar from '../../components/NavBar';
@@ -7,18 +8,16 @@ import { getOrderById } from '../../api/order';
 
 function ClientOrder() {
   const [order, setOrder] = useState(false);
-
-  // const sumPrices = products
-  //   .reduce((acc, curr) => (curr.price * curr.quantity) + acc, 0);
+  const { id } = useParams();
 
   useEffect(() => {
     const asyncFunc = async () => {
-      const { token, id } = JSON.parse(localStorage.getItem('user'));
+      const { token } = JSON.parse(localStorage.getItem('user'));
       const orderId = await getOrderById(id, token);
       setOrder(orderId);
     };
     asyncFunc();
-  }, []);
+  }, [id]);
 
   return (
 
@@ -32,7 +31,7 @@ function ClientOrder() {
               <div
                 data-testid="customer_order_details__element-order-details-label-order-id"
               >
-                { `PEDIDO 000${order.seller_id}` }
+                { `PEDIDO 000${order.id}` }
               </div>
               <div
                 data-testid="customer_order_details__
@@ -44,7 +43,7 @@ function ClientOrder() {
                 data-testid="customer_order_details__
                 element-order-details-label-order-date"
               >
-                { moment(order.sale_date).format('L') }
+                { moment(order.sale_date).format('DD/MM/YYYY') }
               </div>
               <div
                 data-testid="customer_order_details__element-order-details-
