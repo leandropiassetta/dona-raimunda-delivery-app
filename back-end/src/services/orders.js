@@ -8,6 +8,17 @@ const createOrder = async ({ products, ...order }) => {
   return { ...dataValues, id };
 };
 
+const getSaleByUser = async (body) => {
+  try {
+    const query = await sales.findAll({ where: body });
+    return query.map((sale) => sale.dataValues);
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 module.exports = {
   createOrder,
+  getSaleByUser,
 };

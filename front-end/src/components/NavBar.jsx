@@ -36,6 +36,7 @@ function NavBar() {
         </NavBtn>
         <NavBtn
           data-testid="customer_products__element-navbar-link-orders"
+          onClick={ () => history('/customer/orders') }
         >
           MEUS PEDIDOS
         </NavBtn>
