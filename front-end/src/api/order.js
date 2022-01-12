@@ -32,12 +32,11 @@ export async function getOrderById(id, token) {
   }
 }
 
-export const getOrders = async ({ token, body }) => {
+export const getOrders = async ({ token, search }) => {
   try {
     const order = await axiosAPI.get(
-      '/orders',
+      `/orders/search?${search}`,
       {
-        params: body,
         headers: {
           authorization: token,
         },

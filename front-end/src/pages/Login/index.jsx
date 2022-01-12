@@ -21,13 +21,17 @@ function Login() {
   const loginInfo = async () => {
     const userData = await loginUser({ email, password });
     if (userData.error) return setAlert(userData.error);
-    localStorage.setItem('user', JSON.stringify(userData.data));
-    history('/customer/products');
+    localStorage.setItem('user', JSON.stringify(userData));
+    const endPoint = (userData.role === 'customer') ? 'products' : 'orders';
+    history(`/${userData.role}/${endPoint}`);
   };
 
   useEffect(() => {
-    if (localStorage.getItem('user')) {
-      history('/customer/products');
+    const userData = JSON.parse(localStorage.getItem('user'));
+    console.log(userData);
+    if (userData) {
+      const endPoint = (userData.role === 'customer') ? 'products' : 'orders';
+      history(`/${userData.role}/${endPoint}`);
     }
     // eslint-disable-next-line
   }, []);

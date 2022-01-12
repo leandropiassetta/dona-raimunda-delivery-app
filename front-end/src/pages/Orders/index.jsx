@@ -3,14 +3,15 @@ import { getOrders } from '../../api/order';
 import CustomerOrder from '../../components/CustomerOrder';
 import NavBar from '../../components/NavBar';
 
-function CustomerOrders() {
+function Orders() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     const asyncFunction = async () => {
-      const { token, id } = JSON.parse(localStorage.getItem('user'));
-      const body = { user_id: id };
-      const newOrders = await getOrders({ token, body });
+      const { token, id, role } = JSON.parse(localStorage.getItem('user'));
+      const search = (role === 'customer') ? `user_id=${id}` : `seller_id=${id}`;
+      const newOrders = await getOrders({ token, search });
+      console.log(newOrders);
       setOrders(newOrders);
     };
     asyncFunction();
@@ -28,4 +29,4 @@ function CustomerOrders() {
   );
 }
 
-export default CustomerOrders;
+export default Orders;
