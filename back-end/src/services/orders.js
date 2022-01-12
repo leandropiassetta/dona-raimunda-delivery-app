@@ -45,8 +45,20 @@ const getSaleByUser = async (body) => {
   }
 };
 
+const updateOrder = async (body, params) => {
+  try {
+    const update = await sales.update(body, { where: params });
+    console.log(params);
+    return update;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 module.exports = {
   createOrder,
   getOrder,
   getSaleByUser,
+  updateOrder,
 };
