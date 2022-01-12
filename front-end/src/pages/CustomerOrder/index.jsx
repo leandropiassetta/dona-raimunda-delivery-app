@@ -9,8 +9,9 @@ function CustomerOrders() {
   useEffect(() => {
     const asyncFunction = async () => {
       const { token, id } = JSON.parse(localStorage.getItem('user'));
-      const body = { user_id: id };
-      const newOrders = await getOrders({ token, body });
+      const search = `user_id=${id}`;
+      const newOrders = await getOrders({ token, search });
+      console.log(newOrders);
       setOrders(newOrders);
     };
     asyncFunction();
