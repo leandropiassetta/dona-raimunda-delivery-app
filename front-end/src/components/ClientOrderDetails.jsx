@@ -4,7 +4,7 @@ import moment from 'moment';
 
 const magicNumber = -4;
 
-function OrderDetails({ order }) {
+function ClientOrderDetails({ order }) {
   return (
     <section>
       <div
@@ -38,7 +38,7 @@ function OrderDetails({ order }) {
   );
 }
 
-OrderDetails.propTypes = {
+ClientOrderDetails.propTypes = {
   order: PropTypes.shape({
     id: PropTypes.string,
     sale_date: PropTypes.string,
@@ -49,4 +49,4 @@ OrderDetails.propTypes = {
   }).isRequired,
 };
 
-export default OrderDetails;
+export default ClientOrderDetails;
