@@ -6,15 +6,20 @@ const registerOrder = async (req, res) => {
   return res.status(201).json(order);
 };
 
-// Só usamos Query pois no AXIOS só retornava dentro da query{}
+const getOrderById = async (req, res) => {
+  const { id } = req.params;
+  const orderById = await service.getOrder({ id });
+  return res.status(200).json(orderById);
+};
+
 const getSaleByUser = async (req, res) => {
   const { query } = req;
-
   const orders = await service.getSaleByUser(query); 
   return res.status(200).json(orders);
 };
 
 module.exports = {
   registerOrder,
+  getOrderById,
   getSaleByUser,
 };

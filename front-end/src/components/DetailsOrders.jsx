@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getSellers } from '../api/user';
 import { createOrder } from '../api/order';
+import { setProducts } from '../slices/productsCart';
 
 function DetailsOrders() {
   const [sellers, setSellers] = useState([]);
@@ -11,6 +12,8 @@ function DetailsOrders() {
   const [number, setNumber] = useState('');
 
   const history = useNavigate();
+  const dispatch = useDispatch();
+
   const products = useSelector((state) => state.productsCart.products);
   const sumPrices = products
     .reduce((acc, curr) => (curr.price * curr.quantity) + acc, 0);
@@ -37,6 +40,7 @@ function DetailsOrders() {
       products,
     };
     const order = await createOrder({ token, body });
+    dispatch(setProducts([]));
     history(`/customer/orders/${order.id}`);
   }
 

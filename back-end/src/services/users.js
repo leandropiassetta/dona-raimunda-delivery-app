@@ -31,10 +31,11 @@ const registerUser = async ({ email, name, password, role }) => {
   try {
     const {
       dataValues: newUser,
+      null: id,
     } = await users.create({ name, email, password: md5(password), role });
-    const { password: senha, ...copyUser } = newUser;
+    const { password: removedPassword, ...copyUser } = newUser;
     const token = await createToken(newUser);
-    return { ...copyUser, token };
+    return { ...copyUser, token, id };
   } catch (error) {
     console.error(error);
     return null;

@@ -4,8 +4,10 @@ import { removeProduct } from '../slices/productsCart';
 
 function FinalizeOrder() {
   const products = useSelector((state) => state.productsCart.products);
+
   const sumPrices = products
     .reduce((acc, curr) => (curr.price * curr.quantity) + acc, 0);
+
   const dispatch = useDispatch();
 
   return (
