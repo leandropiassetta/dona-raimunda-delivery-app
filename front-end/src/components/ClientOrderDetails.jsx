@@ -1,21 +1,25 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { editOrder } from '../api/order';
 
 const magicNumber = -4;
 
 function ClientOrderDetails({ order }) {
-  const [state, setState] = useState('');
+  const [status, setStatus] = useState('Pendente');
   const history = useNavigate();
   const disabledCase = ['Pendente', 'Preparando', 'Entregue'];
 
-  const handleClick = async (status) => {
+  useEffect(() => {
+    setStatus(order.status);
+  }, [order.status]);
+
+  const handleClick = async (newStatus) => {
     const { token } = JSON.parse(localStorage.getItem('user'));
-    await editOrder(order.id, { status }, token);
+    await editOrder(order.id, { status: newStatus }, token);
+    setStatus(newStatus);
     history(`/customer/orders/${order.id}`);
-    setState(state);
   };
 
   return (
@@ -38,12 +42,12 @@ function ClientOrderDetails({ order }) {
       <div
         data-testid="customer_order_details__element-order-details-label-delivery-status"
       >
-        { order.status }
+        { status }
       </div>
       <button
         type="button"
         data-testid="customer_order_details__button-delivery-check"
-        disabled={ disabledCase.includes(order.status) }
+        disabled={ disabledCase.includes(status) }
         onClick={ () => handleClick('Entregue') }
       >
         Marcar como entregue
