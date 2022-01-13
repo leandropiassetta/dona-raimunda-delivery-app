@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../slices/productsCart';
 import { loginUser } from '../../api/user';
 import rockGlass from '../../images/rockGlass.svg';
 import { Base, Form, LoginBtn, Input, RegisterBtn, Alert } from '../../styles';
@@ -14,6 +16,7 @@ function Login() {
   const MIN_PASSWORD = 6;
   const regexEmail = /\S+@\S+\.\S+/;
   const history = useNavigate();
+  const dispatch = useDispatch();
 
   // Functions
   const changeEmail = ({ target }) => setEmail(target.value);
@@ -22,6 +25,7 @@ function Login() {
     const userData = await loginUser({ email, password });
     if (userData.error) return setAlert(userData.error);
     localStorage.setItem('user', JSON.stringify(userData));
+    dispatch(setUser(userData));
     const endPoint = (userData.role === 'customer') ? 'products' : 'orders';
     history(`/${userData.role}/${endPoint}`);
   };

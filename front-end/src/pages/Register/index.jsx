@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../slices/productsCart';
 import { registerUser } from '../../api/user';
 import { Base, Form, LoginBtn, Input, Alert } from '../../styles';
 
@@ -16,6 +17,7 @@ export default () => {
   const MIN_NAME = 12;
   const regexEmail = /\S+@\S+\.\S+/;
   const history = useNavigate();
+  const dispatch = useDispatch();
 
   // Functions
   const changeEmail = ({ target }) => setEmail(target.value);
@@ -25,6 +27,7 @@ export default () => {
     const userData = await registerUser({ email, name, password, role: 'customer' });
     if (userData.error) return setAlert(userData.error);
     localStorage.setItem('user', JSON.stringify(userData.user));
+    dispatch(setUser(userData.user));
     history('/customer/products');
   };
 

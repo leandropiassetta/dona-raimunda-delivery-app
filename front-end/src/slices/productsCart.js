@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   products: [],
+  user: {},
 };
 
 const reducers = {
@@ -21,6 +22,9 @@ const reducers = {
   removeProduct: (state, { payload }) => {
     state.products = state.products.filter((product) => product.name !== payload);
   },
+  setUser: (state, { payload }) => {
+    state.user = payload;
+  },
 };
 
 export const userSlice = createSlice({
@@ -36,6 +40,7 @@ export const {
   incrementQuantify,
   decrementQuantify,
   setQuantity,
+  setUser,
 } = userSlice.actions;
 
 export default userSlice.reducer;
