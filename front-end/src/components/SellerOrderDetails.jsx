@@ -6,8 +6,8 @@ import { editOrder } from '../api/order';
 const magicNumber = -4;
 
 function SellerOrderDetails({ order }) {
-  const [status, setStatus] = useState('Pendente');
   const transit = 'Em Trânsito';
+  const [status, setStatus] = useState(transit);
   const disabledPreparingCase = ['Preparando', transit, 'Entregue'];
   const disabledTransitCase = ['Pendente', transit, 'Entregue'];
   useEffect(() => {

@@ -7,7 +7,7 @@ import { editOrder } from '../api/order';
 const magicNumber = -4;
 
 function ClientOrderDetails({ order }) {
-  const [status, setStatus] = useState('Pendente');
+  const [status, setStatus] = useState('Em Trânsito');
   const history = useNavigate();
   const disabledCase = ['Pendente', 'Preparando', 'Entregue'];
 
