@@ -70,6 +70,15 @@ function Login() {
         >
           Esqueceu a senha?
         </button>
+        <button
+          type="button"
+          onClick={ () => {
+            setPassword('fulana@123');
+            setEmail('fulana@deliveryapp.com');
+          } }
+        >
+          Esqueceu a senha? Vendedor
+        </button>
         <LoginBtn
           type="button"
           data-testid="common_login__button-login"

@@ -47,3 +47,20 @@ export const getOrders = async ({ token, search }) => {
     return { error };
   }
 };
+
+export async function editOrder(id, body, token) {
+  try {
+    const orderById = await axiosAPI.put(
+      `/orders/${id}`,
+      body,
+      {
+        headers: {
+          authorization: token,
+        },
+      },
+    );
+    return orderById.data;
+  } catch (error) {
+    return { error };
+  }
+}
