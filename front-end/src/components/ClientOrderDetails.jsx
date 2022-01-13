@@ -1,10 +1,27 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import moment from 'moment';
+import { editOrder } from '../api/order';
 
 const magicNumber = -4;
 
-function OrderDetails({ order }) {
+function ClientOrderDetails({ order }) {
+  const [status, setStatus] = useState('Em Trânsito');
+  const history = useNavigate();
+  const disabledCase = ['Pendente', 'Preparando', 'Entregue'];
+
+  useEffect(() => {
+    setStatus(order.status);
+  }, [order.status]);
+
+  const handleClick = async (newStatus) => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    await editOrder(order.id, { status: newStatus }, token);
+    setStatus(newStatus);
+    history(`/customer/orders/${order.id}`);
+  };
+
   return (
     <section>
       <div
@@ -25,12 +42,13 @@ function OrderDetails({ order }) {
       <div
         data-testid="customer_order_details__element-order-details-label-delivery-status"
       >
-        { order.status }
+        { status }
       </div>
       <button
         type="button"
         data-testid="customer_order_details__button-delivery-check"
-        disabled
+        disabled={ disabledCase.includes(status) }
+        onClick={ () => handleClick('Entregue') }
       >
         Marcar como entregue
       </button>
@@ -38,7 +56,7 @@ function OrderDetails({ order }) {
   );
 }
 
-OrderDetails.propTypes = {
+ClientOrderDetails.propTypes = {
   order: PropTypes.shape({
     id: PropTypes.string,
     sale_date: PropTypes.string,
@@ -49,4 +67,4 @@ OrderDetails.propTypes = {
   }).isRequired,
 };
 
-export default OrderDetails;
+export default ClientOrderDetails;

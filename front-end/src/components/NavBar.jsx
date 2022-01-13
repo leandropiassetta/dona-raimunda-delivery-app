@@ -8,6 +8,9 @@ import { setProducts } from '../slices/productsCart';
 function NavBar() {
   const dispatch = useDispatch();
   const history = useNavigate();
+
+  const { name, role } = JSON.parse(localStorage.getItem('user'));
+
   const logout = () => {
     localStorage.clear();
     history('/login');
@@ -32,11 +35,11 @@ function NavBar() {
           data-testid="customer_products__element-navbar-user-full-name"
           className="m-1"
         >
-          { JSON.parse(localStorage.getItem('user')).name }
+          { name }
         </NavBtn>
         <NavBtn
           data-testid="customer_products__element-navbar-link-orders"
-          onClick={ () => history('/customer/orders') }
+          onClick={ () => history(`/${role}/orders`) }
         >
           MEUS PEDIDOS
         </NavBtn>
