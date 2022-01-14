@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import { editOrder } from '../api/order';
+// import { editOrder } from '../api/order';
+import socketClient from '../socket/socketClient';
 
 const magicNumber = -4;
 
@@ -14,10 +15,19 @@ function SellerOrderDetails({ order }) {
     setStatus(order.status);
   }, [order.status]);
   const handleClick = async (newStatus) => {
-    const { token } = JSON.parse(localStorage.getItem('user'));
-    await editOrder(order.id, { status: newStatus }, token);
+    // const { token } = JSON.parse(localStorage.getItem('user'));
+    // await editOrder(order.id, { status: newStatus }, token);
+    await socketClient.emit('status', { id: order.id, status: newStatus });
     setStatus(newStatus);
   };
+
+  useEffect(() => {
+    socketClient.on('status', ({ id, status: orderStatus }) => {
+      if (id === order.id) {
+        setStatus(orderStatus);
+      }
+    });
+  }, []);
 
   return (
     <section>

@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import socketClient from '../socket/socketClient';
 
 function CustomerOrder({ order }) {
+  const [status, setStatus] = useState(order.status);
   const history = useNavigate();
   const { role } = JSON.parse(localStorage.getItem('user'));
+
+  useEffect(() => {
+    socketClient.on('status', ({ id, status: orderStatus }) => {
+      if (id === order.id) {
+        setStatus(orderStatus);
+      }
+    });
+  }, []);
 
   return (
     <button onClick={ () => history(`/${role}/orders/${order.id}`) } type="button">
@@ -13,7 +23,7 @@ function CustomerOrder({ order }) {
         { order.id }
       </div>
       <div data-testid={ `${role}_orders__element-delivery-status-${order.id}` }>
-        { order.status }
+        { status }
       </div>
       <div data-testid={ `${role}_orders__element-order-date-${order.id}` }>
         { moment(order.sale_date).format('DD/MM/YYYY') }

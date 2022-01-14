@@ -4,13 +4,13 @@ const {
   registerOrder,
   getOrderById,
   getSaleByUser,
-  updateOrder,
+  // updateOrder,
 } = require('../../controllers/orders');
 
 routes.post('/', validateToken, registerOrder);
 routes.get('/search', validateToken, getSaleByUser);
 
-routes.put('/:id', validateToken, updateOrder);
+// routes.put('/:id', validateToken, updateOrder);
 routes.get('/:id', validateToken, getOrderById);
 
 module.exports = routes;

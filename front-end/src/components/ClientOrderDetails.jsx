@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import { editOrder } from '../api/order';
+// import { editOrder } from '../api/order';
+import socketClient from '../socket/socketClient';
 
 const magicNumber = -4;
 
@@ -15,9 +16,19 @@ function ClientOrderDetails({ order }) {
     setStatus(order.status);
   }, [order.status]);
 
+  useEffect(() => {
+    socketClient.on('status', ({ id, status: orderStatus }) => {
+      console.log('aqui ==>', id, orderStatus);
+      if (id === order.id) {
+        setStatus(orderStatus);
+      }
+    });
+  }, []);
+
   const handleClick = async (newStatus) => {
-    const { token } = JSON.parse(localStorage.getItem('user'));
-    await editOrder(order.id, { status: newStatus }, token);
+    // const { token } = JSON.parse(localStorage.getItem('user'));
+    // await editOrder(order.id, { status: newStatus }, token);
+    await socketClient.emit('status', { id: order.id, status: newStatus });
     setStatus(newStatus);
     history(`/customer/orders/${order.id}`);
   };
