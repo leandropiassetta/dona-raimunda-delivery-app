@@ -26,16 +26,19 @@ function Login() {
     if (userData.error) return setAlert(userData.error);
     localStorage.setItem('user', JSON.stringify(userData));
     dispatch(setUser(userData));
-    const endPoint = (userData.role === 'customer') ? 'products' : 'orders';
-    history(`/${userData.role}/${endPoint}`);
+    let endPoint = '/customer/products';
+    if (userData.role === 'administrator') endPoint = '/admin/manage';
+    if (userData.role === 'seller') endPoint = '/seller/orders';
+    history(endPoint);
   };
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('user'));
-    console.log(userData);
     if (userData) {
-      const endPoint = (userData.role === 'customer') ? 'products' : 'orders';
-      history(`/${userData.role}/${endPoint}`);
+      let endPoint = '/customer/products';
+      if (userData.role === 'administrator') endPoint = '/admin/manage';
+      if (userData.role === 'seller') endPoint = '/seller/orders';
+      history(endPoint);
     }
     // eslint-disable-next-line
   }, []);
@@ -82,6 +85,15 @@ function Login() {
           } }
         >
           Esqueceu a senha? Vendedor
+        </button>
+        <button
+          type="button"
+          onClick={ () => {
+            setPassword('--adm2@21!!--');
+            setEmail('adm@deliveryapp.com');
+          } }
+        >
+          Esqueceu a senha? Administrador
         </button>
         <LoginBtn
           type="button"

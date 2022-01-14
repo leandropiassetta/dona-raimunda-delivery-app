@@ -14,4 +14,4 @@ const io = socket(server, {
 
 require('../socket/status')(io);
 
-http.listen(PORT, () => console.log(`Api rodando na porta ${PORT}`));
+server.listen(PORT, () => console.log(`Api rodando na porta ${PORT}`));

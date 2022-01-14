@@ -9,7 +9,7 @@ function NavBar() {
   const dispatch = useDispatch();
   const history = useNavigate();
 
-  const { name, role } = JSON.parse(localStorage.getItem('user'));
+  const userData = JSON.parse(localStorage.getItem('user'));
 
   const logout = () => {
     localStorage.clear();
@@ -35,11 +35,11 @@ function NavBar() {
           data-testid="customer_products__element-navbar-user-full-name"
           className="m-1"
         >
-          { name }
+          { userData.name }
         </NavBtn>
         <NavBtn
           data-testid="customer_products__element-navbar-link-orders"
-          onClick={ () => history(`/${role}/orders`) }
+          onClick={ () => history(`/${userData.role}/orders`) }
         >
           MEUS PEDIDOS
         </NavBtn>
