@@ -1,7 +1,7 @@
-const { updateOrder } = require('../services/orders')
+const { updateOrder } = require('../services/orders');
 
 module.exports = (io) => io.on('connection', (socket) => {
-  socket.on('status', async ({ status , id }) => {
+  socket.on('status', async ({ status, id }) => {
     await updateOrder({ status }, { id });
     io.emit('status', { status, id });
   });

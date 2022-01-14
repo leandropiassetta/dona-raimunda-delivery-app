@@ -1,8 +1,10 @@
 const PORT = process.env.PORT || 3001;
+const http = require('http');
+const socket = require('socket.io');
 const app = require('./app');
-const http = require('http').createServer(app);
+const server = http.createServer(app);
 
-const io = require('socket.io')(http, {
+const io = socket(server, {
   cors: {
     origin: 'http://localhost:3000',
     method: ['GET', 'POST'],
